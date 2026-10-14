@@ -1,9 +1,9 @@
-// Zee Tv backend: Access code check, MovieBox API proxy, and Groq AI.
-// Keys are read from Netlify environment variables, never put them in index.html.
-//   ACCESS_CODE  = the code people type on the first screen
-//   GROQ_KEY     = Groq API key
-//   MOVIEBOX_API = https://moviebox-api-tpen.vercel.app
-// Optional: GROQ_MODEL, GROQ_VISION_MODEL
+// Zee Tv backend: Access code check, MovieBox API proxy via env URL, and Groq AI.
+// Keys/URLs are read from Netlify environment variables:
+//   ACCESS_CODE   = the code people type on the first screen
+//   GROQ_KEY      = Groq API key
+//   MOVIEBOX_URL  = https://moviebox-api-tpen.vercel.app (Netlify mein add karna hai)
+//   MOVIEBOX_KEY  = Optional API key for MovieBox if needed
 
 const crypto = require("crypto");
 const json = (status, body) => ({
@@ -19,7 +19,7 @@ const same = (a, b) => {
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") return json(405, { error: "POST only" });
   
-  const { ACCESS_CODE, GROQ_KEY } = process.env;
+  const { ACCESS_CODE, GROQ_KEY, MOVIEBOX_URL, MOVIEBOX_KEY } = process.env;
   if (!ACCESS_CODE) return json(500, { error: "ACCESS_CODE not set" });
 
   const code = event.headers["x-code"] || event.headers["X-Code"] || "";
@@ -38,19 +38,26 @@ exports.handler = async (event) => {
 
     // MovieBox API Proxy route
     if (b.type === "moviebox") {
+      if (!MOVIEBOX_URL) return json(500, { error: "MOVIEBOX_URL not set" });
+
       const endpointPath = String(b.path || "/home");
       if (!/^\/[a-zA-Z0-9_\/\-]+$/.test(endpointPath)) {
         return json(400, { error: "bad path" });
       }
 
-      const baseUrl = "https://moviebox-api-tpen.vercel.app";
-      const targetUrl = new URL(baseUrl + endpointPath);
+      // Netlify variable se base URL utھے گا
+      const targetUrl = new URL(MOVIEBOX_URL.replace(/\/$/, "") + endpointPath);
 
       for (const [k, v] of Object.entries(b.params || {})) {
         if (v !== "" && v != null) targetUrl.searchParams.set(k, v);
       }
 
-      const apiResponse = await fetch(targetUrl);
+      const headers = {};
+      if (MOVIEBOX_KEY) {
+        headers["Authorization"] = "Bearer " + MOVIEBOX_KEY;
+      }
+
+      const apiResponse = await fetch(targetUrl, { headers });
       const responseData = await apiResponse.text();
 
       return {
