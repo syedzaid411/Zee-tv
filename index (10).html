@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Zee Tv</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--mut:#9aa3b8;--blue:#0072d2}
+*{box-sizing:border-box;margin:0}
+html,body{background:#040714}
+body{background:radial-gradient(ellipse 80% 40% at 50% 0,#1a2a66 0,transparent 70%),#040714;color:#f9f9f9;font-family:"Segoe UI",Tahoma,system-ui,sans-serif;min-height:100vh}
+button,input,select{font:inherit;color:inherit}
+header{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 16px;background:linear-gradient(180deg,rgba(4,7,20,.95),rgba(4,7,20,.6));backdrop-filter:blur(12px)}
+.logo{font-weight:900;font-size:22px;letter-spacing:.5px;direction:ltr;text-shadow:0 0 22px #2a6bff}
+.logo i{font-style:normal;background:linear-gradient(90deg,#4da3ff,#9b7bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+#q{flex:1;min-width:130px;background:rgba(255,255,255,.08);border:1px solid transparent;border-radius:24px;padding:9px 16px;outline:0;transition:.2s}
+#q:focus{background:rgba(255,255,255,.14);border-color:#fff}
+.b{background:rgba(255,255,255,.1);border:1px solid transparent;border-radius:22px;padding:8px 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.b:hover{background:#f9f9f9;color:#040714}
+.b:focus-visible,.c:focus-visible,.pt:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.b.p{background:linear-gradient(90deg,#0072d2,#5b4bff);font-weight:700}
+.b.p:hover{background:#f9f9f9;color:#040714}
+select{background:#0d1226;border:1px solid #2c3350;border-radius:10px;padding:7px}
+.hero{position:relative;min-height:64vh;display:flex;align-items:flex-end;padding:28px 18px 38px;background:var(--hb) center/cover}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#040714 3%,rgba(4,7,20,.15) 55%,rgba(4,7,20,.5)),linear-gradient(270deg,rgba(4,7,20,.9),transparent 75%)}
+.hero>div{position:relative;max-width:560px}
+.tag{display:inline-block;background:rgba(255,255,255,.14);border-radius:6px;padding:3px 10px;font-size:13px;backdrop-filter:blur(6px)}
+.hero h1{font-size:clamp(32px,7vw,56px);font-weight:900;line-height:1.1;margin:10px 0;direction:ltr;text-align:right;text-shadow:0 4px 24px #000}
+.hero p{color:#dfe6ff;line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;direction:ltr;text-align:left;margin-bottom:16px}
+.hero .b{padding:11px 22px;margin-inline-end:8px}
+main{padding:0 16px 10px}
+h2{font-size:19px;font-weight:700;margin:26px 0 10px}
+.r{display:flex;gap:14px;overflow-x:auto;padding:8px 4px 16px;scroll-snap-type:x proximity;direction:ltr;scrollbar-width:none}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:14px;direction:ltr;padding:6px 0}
+.c{position:relative;flex:0 0 auto;width:150px;aspect-ratio:2/3;border-radius:12px;overflow:hidden;cursor:pointer;background:#1a1d29;border:2px solid rgba(255,255,255,.08);transition:transform .3s,border-color .3s,box-shadow .3s;scroll-snap-align:start}
+.g .c{width:auto}
+.c:hover{transform:scale(1.08);border-color:#f9f9f9;box-shadow:0 14px 34px rgba(0,0,0,.7);z-index:2}
+.c img{display:block;width:100%;height:100%;object-fit:cover}
+.c span{position:absolute;inset:auto 0 0;padding:26px 9px 9px;font-size:13px;font-weight:700;line-height:1.3;background:linear-gradient(0deg,rgba(0,0,0,.92),transparent);opacity:0;transition:.3s;text-align:left}
+.c:hover span,.c.d span{opacity:1}
+.c b{position:absolute;top:7px;left:7px;background:rgba(0,0,0,.72);border-radius:8px;padding:2px 7px;font-size:12px;color:#ffd24d}
+.pt{flex:0 0 auto;width:158px;height:88px;border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px;font-weight:800;font-size:15px;background:linear-gradient(135deg,var(--k),#0a0e22 85%);border:2px solid rgba(255,255,255,.14);cursor:pointer;transition:.3s}
+.pt:hover{border-color:#fff;transform:scale(1.06)}
+#gate,#md{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:14px}
+#gate{background:radial-gradient(circle at 50% 28%,#26398a,#040714 68%);flex-direction:column;gap:14px;text-align:center}
+#gate .logo{font-size:clamp(34px,10vw,54px)}
+#gate input{width:min(310px,90%);text-align:center;background:rgba(255,255,255,.08);border:1px solid #3a4470;border-radius:14px;padding:14px;letter-spacing:3px;font-size:18px;direction:ltr;outline:0}
+#gate input:focus{border-color:#fff}
+#ge{color:#ff6b6b;min-height:20px}
+#md{display:none;background:rgba(0,0,0,.82);align-items:flex-start;overflow-y:auto}
+.box{background:#0e1226;border:1px solid #2c3350;border-radius:18px;max-width:760px;width:100%;margin:auto;padding:18px;position:relative}
+.x{position:absolute;top:10px;left:12px;font-size:22px;cursor:pointer;background:none;border:0}
+.top{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px}
+.top img{width:130px;border-radius:12px;align-self:flex-start}
+.top div{flex:1;min-width:200px}
+.s{color:var(--mut);font-size:13px;margin:12px 0 6px}
+.pv{display:flex;gap:8px;flex-wrap:wrap;direction:ltr}
+.pv img{width:46px;height:46px;border-radius:11px}
+.pp{background:#1d2442;border-radius:10px;padding:10px 13px;font-weight:700;font-size:13px}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+#ao{white-space:pre-wrap;line-height:1.9;background:#141a34;border-radius:12px;padding:12px;margin-top:8px}
+#ao:empty{display:none}
+blockquote{background:#141a34;border-radius:10px;padding:10px;margin:8px 0;font-size:14px;line-height:1.7;direction:ltr;text-align:left}
+iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;margin-top:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.ld{padding:30px;text-align:center}
+footer{text-align:center;color:var(--mut);padding:28px 14px 44px;font-size:14px}
+footer a{color:#4da3ff;text-decoration:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---- themes ---- */
+:root,[data-theme=royal]{--bg:#040714;--glow:#1a2a66;--hd:linear-gradient(180deg,rgba(4,7,20,.95),rgba(4,7,20,.6));--lg:linear-gradient(90deg,#4da3ff,#9b7bff);--gl:#2a6bff;--ac:linear-gradient(90deg,#0072d2,#5b4bff);--at:#fff;--sh:rgba(4,7,20,.9);--pn:#0e1226;--pn2:#141a34;--ln:#2c3350;--rd:18px;--rc:12px;--gt:radial-gradient(circle at 50% 28%,#26398a,#040714 68%);--hf:"Segoe UI",Tahoma,system-ui,sans-serif}
+[data-theme=crimson]{--bg:#0b0b0d;--glow:#4a0a0e;--hd:linear-gradient(180deg,#000,rgba(0,0,0,.5));--lg:linear-gradient(90deg,#ff3b47,#b20710);--gl:#e50914;--ac:#e50914;--at:#fff;--sh:rgba(0,0,0,.92);--pn:#16161a;--pn2:#202027;--ln:#33333b;--rd:6px;--rc:4px;--gt:radial-gradient(circle at 50% 28%,#5a0a10,#0b0b0d 68%);--hf:Impact,"Arial Narrow",sans-serif}
+[data-theme=aurora]{--bg:#120d2e;--glow:#5b3bd6;--hd:rgba(255,255,255,.07);--lg:linear-gradient(90deg,#5ee7df,#b490ff);--gl:#8a63ff;--ac:linear-gradient(90deg,#14b8c6,#8a63ff);--at:#fff;--sh:rgba(18,13,46,.88);--pn:rgba(40,30,95,.82);--pn2:rgba(255,255,255,.09);--ln:rgba(255,255,255,.2);--rd:26px;--rc:20px;--gt:radial-gradient(circle at 30% 20%,#4a2fb8,#120d2e 70%);--hf:"Segoe UI",Tahoma,system-ui,sans-serif}
+[data-theme=gold]{--bg:#0c0a07;--glow:#3a2c0c;--hd:linear-gradient(180deg,#0c0a07,rgba(12,10,7,.6));--lg:linear-gradient(90deg,#f6e27a,#c9962b);--gl:#c9962b;--ac:linear-gradient(90deg,#c9962b,#f6e27a);--at:#1a1204;--sh:rgba(12,10,7,.9);--pn:#15110a;--pn2:#1d170d;--ln:#4a3a16;--rd:4px;--rc:2px;--gt:radial-gradient(circle at 50% 28%,#4a3510,#0c0a07 68%);--hf:Georgia,"Times New Roman",serif}
+html,body{background:var(--bg)}
+body{background:radial-gradient(ellipse 80% 40% at 50% 0,var(--glow) 0,transparent 70%),var(--bg)}
+header{background:var(--hd)}
+.logo,h2,.hero h1{font-family:var(--hf)}
+.logo{text-shadow:0 0 22px var(--gl)}
+.logo i{background:var(--lg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.b.p{background:var(--ac);color:var(--at)}
+.b.p:hover{background:#f9f9f9;color:#040714}
+.hero:before{background:linear-gradient(0deg,var(--bg) 3%,rgba(0,0,0,.1) 55%,rgba(0,0,0,.45)),linear-gradient(270deg,var(--sh),transparent 75%)}
+.c{border-radius:var(--rc);border-color:var(--ln)}
+.pt{border-radius:var(--rc);background:linear-gradient(135deg,var(--k),var(--bg) 85%);border-color:var(--ln)}
+.box{background:var(--pn);border-color:var(--ln);border-radius:var(--rd);backdrop-filter:blur(18px)}
+#ao,blockquote,.pp{background:var(--pn2)}
+select{background:var(--pn);border-color:var(--ln)}
+#gate{background:var(--gt)}
+
+/* ---- PREMIUM LAYER ---- */
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes sh{to{background-position:-200% 0}}
+::-webkit-scrollbar{height:6px;width:6px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:9px}
+header{padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(22px) saturate(1.6);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.logo{font-size:24px;font-weight:900;letter-spacing:1px}
+#q{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+#q:focus{box-shadow:0 0 0 4px rgba(120,150,255,.22)}
+.b{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);font-weight:600;font-size:14px}
+.b:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.b.p{border-color:transparent;box-shadow:0 6px 22px -4px var(--gl)}
+select{border-radius:12px;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14)}
+h2{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;letter-spacing:.3px}
+h2:before{content:"";width:4px;height:22px;border-radius:4px;background:var(--lg)}
+.box h2:before,.hero h1:before{display:none}
+.hero{min-height:72vh;animation:up .7s both}
+.hero h1{font-size:clamp(36px,8vw,68px);letter-spacing:-1px}
+.tag{background:var(--ac);color:var(--at);font-weight:700;padding:5px 14px;border-radius:30px;box-shadow:0 6px 20px -6px var(--gl)}
+.hero .b{padding:13px 26px;font-size:15px}
+.r,.g{animation:up .6s both}
+.c{border-radius:16px;box-shadow:0 10px 26px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.1)}
+.c:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 22px 44px rgba(0,0,0,.75),0 0 28px -6px var(--gl)}
+.c b{background:rgba(10,12,28,.7);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:3px 9px}
+.c span{opacity:1;background:linear-gradient(0deg,rgba(0,0,0,.9),transparent);padding-top:36px}
+.pt{height:92px;font-size:16px;border-radius:18px;box-shadow:0 10px 24px rgba(0,0,0,.4);position:relative;overflow:hidden}
+.pt:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.18),transparent 45%)}
+.box{border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.7);animation:up .35s both;border:1px solid rgba(255,255,255,.12)}
+#md{backdrop-filter:blur(10px)}
+.top img{box-shadow:0 14px 34px rgba(0,0,0,.6)}
+.ld{background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent) 0 0/200% 100%;animation:sh 1.4s linear infinite;border-radius:14px}
+.mood{font-size:15px;padding:10px 18px}
+#fab{animation:up .6s both;transition:.25s}#fab:hover{transform:scale(1.1) rotate(-6deg)}
+footer{border-top:1px solid rgba(255,255,255,.06)}
+
+/* ---- DISNEY+ STYLE LAYER ---- */
+@keyframes sl{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
+header>.b:not(#mb),header>select{display:none}
+header{gap:10px;background:linear-gradient(180deg,rgba(4,7,20,.96),rgba(4,7,20,.0));border:0;box-shadow:none;backdrop-filter:none}
+header.sc{background:rgba(4,7,20,.88);backdrop-filter:blur(20px)}
+#mb{width:42px;height:42px;padding:0;font-size:20px;border-radius:50%}
+#tn{display:none;gap:2px;margin-inline-start:12px}
+#tn a{padding:9px 15px;border-radius:22px;cursor:pointer;font-weight:700;font-size:14px;color:#cfd6ee;letter-spacing:.4px}
+#tn a:hover{background:rgba(255,255,255,.12);color:#fff}
+.hero{min-height:80vh;padding:90px 22px 70px;margin-top:-62px}
+.hero h1{font-weight:900;text-transform:uppercase;letter-spacing:-.5px}
+.hero .b.p{background:#f9f9f9;color:#040714;box-shadow:0 8px 26px rgba(0,0,0,.5);font-weight:800;letter-spacing:.5px}
+.hero .b:not(.p){border-color:rgba(255,255,255,.5)}
+.c{border-radius:10px;border:3px solid transparent;box-shadow:rgba(0,0,0,.69) 0 26px 30px -10px,rgba(0,0,0,.73) 0 16px 10px -10px}
+.c:hover{transform:scale(1.06);border-color:rgba(249,249,249,.85);box-shadow:rgba(0,0,0,.8) 0 40px 58px -16px,rgba(0,0,0,.72) 0 30px 22px -10px}
+.c span{opacity:0;padding-top:26px}.c:hover span,.c.d span{opacity:1}
+.pt{width:176px;height:100px;border-radius:12px;border:3px solid rgba(249,249,249,.15);font-size:17px;letter-spacing:.5px;box-shadow:rgba(0,0,0,.69) 0 26px 30px -10px}
+.pt:hover{border-color:rgba(249,249,249,.85);transform:scale(1.05)}
+h2{font-size:18px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+h2:before{display:none}
+#fab{display:none}
+body{padding-bottom:78px}
+#bn{position:fixed;bottom:0;left:0;right:0;z-index:25;display:flex;justify-content:space-around;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(4,7,20,.86);backdrop-filter:blur(22px);border-top:1px solid rgba(255,255,255,.1)}
+#bn button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--mut);cursor:pointer;min-width:56px}
+#bn button span{font-size:22px}#bn button:active{color:#fff}
+#dw{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);display:none}
+#dw.o{display:block}
+#dw aside{position:absolute;top:0;bottom:0;right:0;width:min(330px,86%);background:var(--pn);border-left:1px solid var(--ln);padding:20px 14px;overflow-y:auto;animation:sl .3s both}
+.mi{display:flex;gap:12px;align-items:center;padding:13px 12px;border-radius:12px;cursor:pointer;font-weight:700}
+.mi:hover{background:rgba(255,255,255,.1)}
+.sel{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px}
+.hc{background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:16px 12px;cursor:pointer;transition:.25s;text-align:center;font-weight:700;line-height:1.5}
+.hc:hover{transform:translateY(-4px);border-color:#fff;box-shadow:0 14px 30px rgba(0,0,0,.6)}
+.hc i{display:block;font-style:normal;font-size:30px;margin-bottom:6px}
+.hc small{display:block;color:var(--mut);font-weight:400;font-size:12px}
+@media(min-width:760px){#bn{display:none}#tn{display:flex}body{padding-bottom:0}}
+
+/* ---- TOP-ONLY NAV, PROFESSIONAL ---- */
+body{padding-bottom:0!important}#bn{display:none!important}
+header{padding:10px 16px 8px;row-gap:8px;background:linear-gradient(180deg,rgba(4,7,20,.98),rgba(4,7,20,.78));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(20px)}
+#tn{display:flex!important;order:9;flex:1 0 100%;margin:0;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
+#tn::-webkit-scrollbar{display:none}
+#tn a{white-space:nowrap;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.05);font-size:13px;padding:8px 15px}
+#tn a:hover{background:#f9f9f9;color:#040714}
+.hero{margin-top:-118px;padding-top:150px}
+.band{margin:30px 0 6px;padding:24px 18px;border-radius:20px;text-align:center;line-height:2;font-size:18px;font-weight:800;background:linear-gradient(120deg,rgba(91,75,255,.3),rgba(0,114,210,.18));border:1px solid rgba(255,255,255,.15);box-shadow:0 16px 44px rgba(0,0,0,.45)}
+.band small{display:block;color:#cfd6ee;font-weight:500;font-size:14px;margin-top:4px}
+#about{max-width:920px;margin:36px auto 0;padding:26px 20px;background:var(--pn,#0e1226);border:1px solid var(--ln,#2c3350);border-radius:24px;line-height:2;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+#about .ft{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:14px 0}
+#about .ft div{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.7}
+
+/* ---- Zee Tv MOVIEBOX LAYER ---- */
+body{padding-bottom:84px!important}
+.logo{direction:ltr}
+.tabs{display:flex;gap:26px;padding:14px 4px 6px;border-bottom:1px solid rgba(255,255,255,.1);direction:ltr}
+.tabs a{font-size:18px;font-weight:700;color:#9aa3b8;cursor:pointer;padding-bottom:8px;border-bottom:3px solid transparent}
+.tabs a.on{color:#fff;border-color:#2dd47f}
+.fl{display:flex;gap:10px;margin:14px 0;overflow-x:auto;direction:ltr}
+.fl select{border-radius:30px;border:1.5px solid rgba(255,255,255,.7);background:transparent;padding:10px 16px;font-size:16px;font-weight:600;min-width:104px}
+.fl option{background:#0d1226}
+.g{grid-template-columns:repeat(3,1fr);gap:14px 10px}
+@media(min-width:760px){.g{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}}
+.c{aspect-ratio:auto;overflow:visible;background:none;border:0!important;box-shadow:none!important;border-radius:0}
+.g .c{width:auto}
+.c:hover{transform:none;box-shadow:none!important}
+.c .pi{position:relative;aspect-ratio:2/3;border-radius:10px;overflow:hidden;background:#1a1d29;transition:.25s}
+.c:hover .pi{transform:scale(1.04);box-shadow:0 14px 30px rgba(0,0,0,.7)}
+.c em{position:absolute;top:0;right:0;font-style:normal;background:rgba(10,12,28,.78);padding:3px 9px;border-radius:0 0 0 8px;font-size:12px;font-weight:600}
+.c b{top:auto!important;bottom:6px;left:auto!important;right:8px;background:none!important;border:0!important;backdrop-filter:none!important;font-size:20px;font-weight:600;color:#ffd24d;text-shadow:0 2px 8px #000;padding:0!important}
+.c .ct{margin-top:8px;font-size:15px;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-align:left;direction:ltr}
+.c .cg{margin-top:2px;font-size:12px;color:#9aa3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;direction:ltr}
+.r .c{width:132px}
+video{width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;margin-top:10px}
+#zn{position:fixed;bottom:0;left:0;right:0;z-index:25;display:flex;justify-content:space-around;align-items:flex-end;padding:6px 6px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(8,10,22,.96);border-top:1px solid rgba(255,255,255,.1)}
+#zn button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:#9aa3b8;cursor:pointer;min-width:60px}
+#zn button span{font-size:24px}
+#zn .mid{margin-top:-26px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#e50a7a,#7b2cff);border:4px solid #0b0e1f;justify-content:center;color:#fff;font-size:26px;font-weight:900;font-style:normal}
+@media(min-width:900px){#zn{display:none}body{padding-bottom:0!important}}
+</style>
+</head>
+<body>
+<div id="gate">
+  <div class="logo">ZEE <i>TV</i></div>
+  <p>داخل ہونے کے لیے کوڈ لکھیں</p>
+  <input id="gc" type="password" placeholder="••••••" autocomplete="off" aria-label="کوڈ">
+  <button class="b p" onclick="enter($('#gc').value)">کھولیں</button>
+  <div id="ge"></div>
+  <footer>Syed Zaid · <a href="https://www.tiktok.com/@syed_zaidz" target="_blank" rel="noopener">TikTok @syed_zaidz</a></footer>
+</div>
+
+<header>
+  <button class="b" id="mb" onclick="menu(1)" aria-label="مینیو">☰</button><div class="logo">ZEE <i>TV</i></div><nav id="tn"><a onclick="home()">🏠 ہوم</a><a onclick="browse('movie')">🎬 فلمیں</a><a onclick="browse('tv')">📺 سیریز</a><a onclick="hub()">✨ AI Hub</a><a onclick="finder()">🧠 AI فائنڈر</a><a onclick="chat()">🤖 AI چیٹ</a><a onclick="recall()">🔎 نام یاد نہیں</a><a onclick="mmenu()">🎭 موڈ</a><a onclick="surprise()">🎲 سرپرائز</a><a onclick="wlist()">❤ لسٹ</a><a onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">ℹ️ ہمارے بارے میں</a></nav>
+  <input id="q" placeholder="فلم یا سیریز تلاش کریں…" enterkeyhint="search">
+    <button class="b" onclick="finder()">✨ AI فائنڈر</button>
+  <button class="b" onclick="chat()">💬 AI چیٹ</button>
+  <button class="b" onclick="surprise()">🎲 سرپرائز</button>
+  <button class="b" onclick="wlist()">❤ لسٹ</button>
+  <select id="rg" title="ملک"><option>PK</option><option>IN</option><option>US</option><option>GB</option><option>AE</option><option>SA</option><option>CA</option></select>
+  <select id="lg" title="AI زبان"><option value="Urdu (Urdu script)">اردو</option><option value="Hindi (Devanagari script)">हिंदी</option><option value="Roman Urdu">Roman</option><option value="English">English</option></select>
+  <select id="th" title="تھیم"><option value="royal">🎨 Royal</option><option value="crimson">🎨 Crimson</option><option value="aurora">🎨 Aurora</option><option value="gold">🎨 Gold</option></select>
+  <input id="sf" type="file" accept="image/*" hidden>
+</header>
+<div id="hero"></div>
+<main id="main"></main>
+<button id="fab" onclick="chat()" aria-label="AI چیٹ" style="position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));right:16px;z-index:20;width:60px;height:60px;border-radius:50%;border:0;font-size:26px;cursor:pointer;background:var(--ac);color:var(--at);box-shadow:0 8px 24px rgba(0,0,0,.6)">💬</button>
+<div id="dw" onclick="if(event.target===this)menu(0)"><aside><div class="logo" style="margin-bottom:10px">ZEE <i>TV</i></div><div id="mi"></div><div class="s">⚙ سیٹنگز (ملک · AI زبان · تھیم)</div><div class="sel" id="sel"></div></aside></div>
+<div id="md" onclick="if(event.target===this)hide()"><div class="box" id="bx"></div></div>
+<section id="about"><h2 style="margin-top:0">ℹ️ ہمارے بارے میں</h2>
+<p><b>Zee Tv</b> ایک ایسی ویب سائٹ ہے جو ایک سوال کا آسان جواب دیتی ہے: <b>"آج کیا دیکھیں، اور کہاں دیکھیں؟"</b></p>
+<p>آج Netflix، Prime Video، Disney+ اور کئی اور پلیٹ فارمز پر ہزاروں فلمیں اور سیریز ہیں، اور ہر بار چننا مشکل ہو جاتا ہے۔ یہ سائٹ اسی مشکل کو آسان بنانے کے لیے بنائی گئی ہے۔ یہاں آپ فلم یا سیریز کی تفصیل، ریٹنگ، ٹریلر اور ریویوز دیکھ سکتے ہیں، یہ جان سکتے ہیں کہ وہ آپ کے ملک میں کس پلیٹ فارم پر ہے، اور AI سے مدد لے سکتے ہیں۔</p>
+<div class="ft"><div>🧠 AI فائنڈر اور موڈ کے مطابق تجاویز</div><div>🤖 AI سے چیٹ اور وائس میں بات</div><div>🔎 نام یاد نہیں تو کہانی سے ڈھونڈیں</div><div>🍿 موویز نائٹ اور ہفتے کا پلان</div><div>🌍 اردو، ہندی، Roman اور English</div></div>
+<p style="color:var(--mut);font-size:14px">نوٹ: Play بٹن ٹریلر اور مالک کی اپنی/قانونی ویڈیوز چلاتا ہے؛ باقی کے لیے بتاتا ہے کہ وہ قانونی طور پر کہاں دستیاب ہیں۔ ڈیٹا TMDB سے لیا جاتا ہے۔</p>
+<p><b>مالک اور ڈویلپر:</b> Syed Zaid · <a href="https://www.tiktok.com/@syed_zaidz" target="_blank" rel="noopener" style="color:#4da3ff;text-decoration:none">TikTok @syed_zaidz</a></p></section>
+<footer>Developed by Syed Zaid · <a href="https://www.tiktok.com/@syed_zaidz" target="_blank" rel="noopener">TikTok @syed_zaidz</a><br>Data: TMDB</footer>
+
+<nav id="zn"><button onclick="home()"><span>🏠</span>ہوم</button><button onclick="hub()"><span>✨</span>AI Hub</button><button class="mid" onclick="chat()" aria-label="AI چیٹ">Z</button><button onclick="wlist()"><span>❤</span>لسٹ</button><button onclick="menu(1)"><span>👤</span>میں</button></nav>
+<script>
+const $=s=>document.querySelector(s),IMG="https://image.tmdb.org/t/p/",DEMO="demo-view";
+const ls={g:k=>{try{return localStorage.getItem(k)}catch{return null}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
+let code=ls.g("zc")||"",demo=false,cur={},wl=JSON.parse(ls.g("wl")||"[]");
+$("#rg").value=ls.g("rg")||"PK";if(ls.g("lg"))$("#lg").value=ls.g("lg");
+const region=()=>$("#rg").value;
+const th=$("#th");th.value=ls.g("th")||"royal";document.documentElement.dataset.theme=th.value;th.onchange=()=>{ls.s("th",th.value);document.documentElement.dataset.theme=th.value};
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pj=s=>{try{return JSON.parse(s.match(/[\[{][\s\S]*[\]}]/)[0])}catch{return null}};
+const GR=["#1e3c72,#2a5298","#42275a,#734b6d","#134e5e,#71b280","#7b4397,#dc2430","#0f2027,#2c5364","#cb2d3e,#ef473a","#355c7d,#c06c84","#141e30,#3a5a8c"];
+const T=["Night Signal","Last Monsoon","The Glass City","Red Harbor","Echo Park","Dust & Gold","Iron Dawn","Paper Moon","Silent Line","Crown of Ash","Blue Hour","Wild Orchid"];
+function dm(p){
+  if(/^\/(movie|tv)\/\d+$/.test(p)){const i=+p.split("/")[2];return{title:T[i%12],overview:"A sample story used in demo mode. Real titles, plots and ratings appear once the site is live with the TMDB key.",genres:[{name:"Thriller"},{name:"Drama"}],vote_average:8.1,vote_count:1240,runtime:118,release_date:"2026-01-01","watch/providers":{results:{[region()]:{flatrate:[{provider_name:"Netflix"},{provider_name:"Prime Video"}],rent:[{provider_name:"YouTube"}]}}},reviews:{results:[{author:"Sample",author_details:{rating:8},content:"Sample review text shown in demo mode."}]},videos:{results:[]}}}
+  return{results:T.map((t,i)=>({id:i,title:t,vote_average:7+(i%20)/10,media_type:"movie",overview:"Sample story in demo mode.",demo:1}))}
+}
+async function api(type,o={}){const r=await fetch("/.netlify/functions/api",{method:"POST",headers:{"x-code":code,"content-type":"application/json"},body:JSON.stringify({type,...o})});if(!r.ok){let t="";try{t=(await r.text()).slice(0,500)}catch{}throw new Error(r.status+" "+t)}return r.json()}
+const tm=(path,p={})=>demo?Promise.resolve(dm(path)):api("tmdb",{path,params:{language:"en-US",region:region(),...p}});
+const ai=async(content,vision)=>demo?"1) قسم: تیز رفتار تھرلر\n2) کہانی: ایک پراسرار سگنل کی گتھی (بغیر spoiler)\n3) کن کے لیے: سسپنس پسند کرنے والے\n4) کہاں دیکھیں: Netflix\n5) ریٹنگ: 8/10\n\n(یہ ڈیمو جواب ہے، اصل سائٹ پر Groq AI جواب دے گا)":(await api("ai",{vision,messages:[{role:"user",content}]})).choices[0].message.content;
+function show(h){$("#bx").innerHTML='<button class="x" onclick="hide()" aria-label="بند">✕</button>'+h;$("#md").style.display="flex"}
+function hide(){try{$("#bx").innerHTML=""}catch{}try{speechSynthesis.cancel()}catch{}$("#md").style.display="none"}
+const LN={hi:"Hindi",en:"English",ur:"Urdu",pa:"Punjabi",ta:"Tamil",te:"Telugu",ko:"Korean",ja:"Japanese",tr:"Turkish",es:"Spanish",fr:"French",ar:"Arabic",zh:"Chinese"};
+const GM={28:"Action",12:"Adventure",16:"Animation",35:"Comedy",80:"Crime",99:"Documentary",18:"Drama",10751:"Family",14:"Fantasy",36:"History",27:"Horror",9648:"Mystery",10749:"Romance",878:"Sci-Fi",53:"Thriller",10752:"War",37:"Western",10759:"Action",10765:"Sci-Fi"};
+function card(m,t){
+  t=m.media_type||t||(m.title?"movie":"tv");if(t==="person"||(!m.poster_path&&!m.demo))return"";
+  const n=esc(m.title||m.name),im=m.poster_path?`<img loading="lazy" alt="${n}" src="${IMG}w342${m.poster_path}">`:`<div style="height:100%;background:linear-gradient(160deg,${GR[m.id%8]})"></div>`;
+  const lg=LN[m.original_language]||(m.original_language||"").toUpperCase(),gn=[...new Set((m.genre_ids||[]).map(x=>GM[x]).filter(Boolean))].slice(0,3).join(", ");
+  return`<div class="c" tabindex="0" onclick="det('${t}',${m.id})" onkeydown="if(event.key==='Enter')this.click()"><div class="pi">${im}${lg?`<em>${lg}</em>`:""}<b>${(m.vote_average||0).toFixed(1)}</b></div><p class="ct">${n}</p><p class="cg">${gn||(t==="tv"?"Series":"Movie")}</p></div>`}
+function ok(){$("#gate").style.display="none";home()}
+async function enter(c){code=c.trim();try{await api("check");ls.s("zc",code);ok()}catch(e){if(code===DEMO&&!/^401/.test(e.message)){demo=true;ok()}else{code="";$("#ge").textContent="کوڈ غلط ہے، دوبارہ کوشش کریں"}}}
+$("#gc").onkeydown=e=>{if(e.key==="Enter")enter(e.target.value)};
+const PR=[["Netflix",8,"#e50914"],["Prime Video",119,"#00a8e1"],["Disney+ Hotstar",122,"#1b4fd6"],["Disney+",337,"#113ccf"],["Apple TV+",350,"#555"],["JioCinema",220,"#d6006c"]];
+const rows=[["🔥 ٹرینڈنگ","/trending/all/week"],["🎬 آنے والی فلمیں","/movie/upcoming"],["⭐ ٹاپ فلمیں","/movie/top_rated"],["📺 ٹاپ سیریز","/tv/top_rated"],["📡 آن ایئر سیریز","/tv/on_the_air"]];
+async function home(){
+  $("#hero").innerHTML="";
+  $("#main").innerHTML=`${TABS("")}<div class="band">🎬 فلموں سے پیار کرنے والوں کے نام<small>ہر کہانی کے پیچھے ایک دل ہوتا ہے، اور ہر دل کو اس کی پسندیدہ کہانی ملنی چاہیے ❤<br>— پیار کے ساتھ، Syed Zaid</small></div><h2>🎭 آج کا موڈ کیا ہے؟</h2><div class="chips">${MOODS.map(m=>`<button class="b mood" onclick="mood('${m[1]}')">${m[0]} ${m[2]}</button>`).join("")}</div><div id="rows"></div>`;
+  tm("/trending/all/week").then(d=>{const m=d.results.find(x=>x.media_type!=="person"&&(x.backdrop_path||x.demo));if(!m)return;const t=m.media_type||"movie",n=esc(m.title||m.name);
+    $("#hero").innerHTML=`<div class="hero" style="--hb:${m.backdrop_path?`url(${IMG}w1280${m.backdrop_path})`:`linear-gradient(120deg,#0b1d4d,#3a1c71 60%,#d76d77)`}"><div><span class="tag">🔥 آج کی نمبر 1 ٹرینڈنگ</span><h1>${n}</h1><p>${esc(m.overview)}</p><button class="b p" onclick="det('${t}',${m.id})">▶ تفصیل اور کہاں دیکھیں</button></div></div>`}).catch(()=>{});
+  for(const[n,p]of rows){try{const d=await tm(p);$("#rows").insertAdjacentHTML("beforeend",`<h2>${n}</h2><div class="r">${d.results.map(m=>card(m,p.startsWith("/tv/")?"tv":"movie")).join("")}</div>`)}catch{}}
+}
+async function byProv(id,n){
+  $("#hero").innerHTML="";$("#main").innerHTML=`<h2><button class="b" onclick="home()">→ ہوم</button> ${esc(n)} · ${region()}</h2>`;
+  for(const[t,l]of[["movie","فلمیں"],["tv","سیریز"]]){try{const d=await tm("/discover/"+t,{with_watch_providers:id,watch_region:region(),sort_by:"popularity.desc"});$("#main").insertAdjacentHTML("beforeend",`<h2>${l}</h2><div class="g">${d.results.map(m=>card(m,t)).join("")||"<p class=s>کچھ نہیں ملا</p>"}</div>`)}catch{}}
+  scrollTo(0,0)}
+$("#rg").onchange=()=>{ls.s("rg",region());home()};
+$("#lg").onchange=()=>ls.s("lg",$("#lg").value);
+let st;$("#q").oninput=e=>{clearTimeout(st);const v=e.target.value.trim();st=setTimeout(async()=>{if(!v)return home();$("#hero").innerHTML="";const sp=gparse(v);if(sp){$("#main").innerHTML=`<h2>نتائج: ${esc(v)}</h2><div id="sr"></div>`;gopen(sp,"sg","sl",$("#sr"));return}const d=await tm("/search/multi",{query:v});$("#main").innerHTML=`<h2>نتائج: ${esc(v)}</h2><div class="g">${d.results.map(m=>card(m)).join("")||"<p class=s>کچھ نہیں ملا</p>"}</div>`},450)};
+async function det(t,id){
+  show('<p class="ld">لوڈ ہو رہا ہے…</p>');
+  const m=await tm(`/${t}/${id}`,{append_to_response:"watch/providers,reviews,videos,recommendations"});
+  const n=m.title||m.name,yr=(m.release_date||m.first_air_date||"").slice(0,4),pv=(m["watch/providers"].results||{})[region()]||{};
+  const grp=(k,l)=>pv[k]?`<div class="s">${l}</div><div class="pv">${pv[k].map(x=>x.logo_path?`<img title="${esc(x.provider_name)}" alt="${esc(x.provider_name)}" src="${IMG}w92${x.logo_path}">`:`<span class="pp">${esc(x.provider_name)}</span>`).join("")}</div>`:"";
+  const names=[...(pv.flatrate||[]),...(pv.rent||[]),...(pv.buy||[])].map(x=>x.provider_name);
+  const vid=(m.videos.results.find(v=>v.type==="Trailer"&&v.site==="YouTube")||{}).key;
+  const rv=m.reviews.results.slice(0,3).map(r=>`<blockquote><b>${esc(r.author)}</b>${r.author_details.rating?" ★"+r.author_details.rating:""}<br>${esc(r.content.slice(0,260))}…</blockquote>`).join("")||'<p class="s">ابھی کوئی ریویو نہیں</p>';
+  cur={vid,link:pv.link,n,t,id,yr,o:m.overview,g:m.genres.map(x=>x.name).join(", "),r:m.vote_average,pl:names,p:m.poster_path};
+  const inw=wl.some(x=>x.id===id&&x.t===t);
+  show(`<div class="top">${m.poster_path?`<img src="${IMG}w342${m.poster_path}" alt="">`:""}<div><h2 style="margin:0">${esc(n)} <small style="color:var(--mut)">${yr}</small></h2>
+  <p class="s">${esc(cur.g)} · ★ ${(m.vote_average||0).toFixed(1)} (${m.vote_count} ووٹ)${m.runtime?` · ${m.runtime} منٹ`:""}${m.number_of_seasons?` · ${m.number_of_seasons} سیزن`:""}</p>
+  <p style="line-height:1.7;direction:ltr;text-align:left">${esc(m.overview)||"—"}</p></div></div>
+  <div class="s">${region()} میں کہاں دیکھیں</div>${grp("flatrate","سبسکرپشن")+grp("rent","کرائے پر")+grp("buy","خریدیں")}
+  ${names.length?"":`<p class="s">اس ملک میں ابھی کوئی پلیٹ فارم نہیں ملا${pv.link?` — <a href="${pv.link}" target="_blank" rel="noopener" style="color:#4da3ff">JustWatch</a>`:""}</p>`}
+  <div class="act"><button class="b p" onclick="play()" style="background:#f9f9f9;color:#040714">▶ Play</button><button class="b p" onclick="ask()">🤖 AI سے پوچھو</button><button class="b" onclick="chat(ctx())">💬 چیٹ</button>${vid?`<button class="b" onclick="this.outerHTML='<iframe allowfullscreen src=https://www.youtube.com/embed/${vid}></iframe>'">▶ ٹریلر</button>`:""}<button class="b" id="wb" onclick="tog()">${inw?"💔 لسٹ سے ہٹائیں":"❤ لسٹ میں ڈالیں"}</button></div>
+  <div id="ao"></div><div class="s">🤖 AI سے فوری سوال</div><div class="chips">${QQ.map(x=>`<button class="b" data-q="${x[1]}" onclick="chatAsk(this.dataset.q)">${x[0]}</button>`).join("")}</div>${(m.recommendations&&m.recommendations.results||[]).length?`<div class="s">✨ ملتی جلتی</div><div class="r">${m.recommendations.results.map(x=>card(x,t)).join("")}</div>`:""}<div class="s">ریویوز</div>${rv}`);
+}
+async function ask(){
+  const o=$("#ao");o.textContent="🤖 AI سوچ رہا ہے…";
+  try{o.textContent=await ai(`You are a movie expert. Reply in ${$("#lg").value}. Title: ${cur.n} (${cur.yr}), ${cur.t==="tv"?"TV series":"movie"}. Genres: ${cur.g}. TMDB rating: ${cur.r}. Plot: ${cur.o}. Available on (${region()}): ${cur.pl.join(", ")||"unknown"}.
+Give short, clear points: 1) what type/mood it is 2) story in 2 lines, NO spoilers 3) who should watch / who should skip 4) where to watch (only from the platforms listed) 5) verdict out of 10.`)}catch{o.textContent="AI جواب نہیں دے سکا، دوبارہ کوشش کریں"}
+}
+function tog(){const i=wl.findIndex(x=>x.id===cur.id&&x.t===cur.t);i>=0?wl.splice(i,1):wl.push({id:cur.id,t:cur.t,poster_path:cur.p,vote_average:cur.r,title:cur.n,demo:demo?1:0});ls.s("wl",JSON.stringify(wl));$("#wb").textContent=i>=0?"❤ لسٹ میں ڈالیں":"💔 لسٹ سے ہٹائیں"}
+function wlist(){show(`<h2>❤ میری لسٹ</h2>${wl.length?`<div class="g">${wl.map(m=>card(m,m.t)).join("")}</div>${wl.length>1?'<div class="act"><button class="b p" onclick="taste()">🧬 AI میرا ذائقہ پہچانے</button></div><div id="fr"></div>':""}`:'<p class="s">لسٹ خالی ہے۔ کسی فلم میں "لسٹ میں ڈالیں" دبائیں۔</p>'}`)}
+async function surprise(){const d=await tm("/trending/all/week");const l=d.results.filter(m=>m.media_type!=="person");const m=l[Math.random()*l.length|0];det(m.media_type||"movie",m.id)}
+async function resolve(j){const t=j.type==="tv"?"tv":"movie";const d=await tm("/search/"+t,{query:j.title,...(t==="movie"&&j.year?{year:j.year}:{})});return d.results[0]?{...d.results[0],media_type:t}:null}
+$("#sf").onchange=async e=>{
+  const f=e.target.files[0];e.target.value="";if(!f)return;
+  if(demo)return show('<p class="ld">ڈیمو موڈ میں اسکین بند ہے۔ اصل سائٹ پر Groq AI تصویر پہچانے گا۔</p>');
+  show('<p class="ld">📷 AI اسکین کر رہا ہے…</p>');
+  try{
+    const im=await new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=URL.createObjectURL(f)});
+    const s=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+    const j=pj(await ai([{type:"text",text:'Identify the movie or TV series shown in this image (poster, screenshot, scene, or photo of a screen). Reply ONLY with JSON: {"title":"...","type":"movie or tv","year":"..."} or {"title":null} if unsure.'},{type:"image_url",image_url:{url:c.toDataURL("image/jpeg",.8)}}],true));
+    const m=j&&j.title?await resolve(j):null;
+    if(!m)return show('<p class="ld">پہچان نہیں سکا۔ پوسٹر یا واضح سین کی تصویر آزمائیں۔</p>');
+    det(m.media_type,m.id);
+  }catch(err){show('<p class="ld">اسکین نہیں ہو سکا، دوبارہ کوشش کریں۔<br><small style="color:var(--mut);direction:ltr;display:block;margin-top:8px">'+esc(err.message)+'</small></p>')}
+};
+const GN=[["Sci-Fi / Science",878,10765],["Thriller",53,9648],["Comedy",35,35],["Romantic",10749,18],["Horror",27,9648],["Action",28,10759],["Family",10751,10751],["Crime",80,80],["Anime",16,16,"ja"],["Korean drama",18,18,"ko"]];
+let fs=null,fseen=[];
+function finder(){show(`<h2>✨ AI فائنڈر</h2><p class="s">نیچے سے قسم چنیں یا اپنی مرضی لکھیں</p>
+<input id="fq" style="width:100%;background:rgba(255,255,255,.08);border:1px solid #2c3350;border-radius:12px;padding:11px" placeholder="مثلاً: رات کو دیکھنے کے لیے تھرلر، کوئی ٹوئسٹ والی" onkeydown="if(event.key==='Enter')find(this.value)">
+<div class="chips">${GN.map((x,i)=>`<button class="b" onclick="gstart(${i})">${x[0]}</button>`).join("")}</div><div id="fr"></div>`)}
+function gstart(i){const x=GN[i];gopen({mg:x[1],tg:x[2],lang:x[3]||"",types:["movie","tv"]},"fg","lm",$("#fr"))}
+function gopen(spec,G,L,root){fs={...spec,page:0,G,L};root.innerHTML=`<div class="g" id="${G}"></div><div id="${L}" style="text-align:center;margin:14px"></div>`;gpage()}
+const GW=[[/adventure|ایڈونچر|एडवेंचर|एडवेन्चर/i,12,10759],[/sci-?fi|science|سائنس|साइंस|साई-?फाई/i,878,10765],[/fantasy|فینٹسی|फैंटेसी/i,14,10765],[/action|ایکشن|एक्शन/i,28,10759],[/comedy|کامیڈی|कॉमेडी/i,35,35],[/horror|ہارر|हॉरर/i,27,9648],[/thriller|تھرلر|थ्रिलर/i,53,9648],[/romantic|romance|رومانٹک|रोमांटिक/i,10749,18],[/crime|کرائم|क्राइम/i,80,80],[/animation|cartoon|کارٹون|कार्टून/i,16,16],[/family|فیملی|फैमिली/i,10751,10751],[/mystery|مسٹری|मिस्ट्री/i,9648,9648],[/war|جنگ|वॉर/i,10752,10768],[/documentary|ڈاکومنٹری|डॉक्यूमेंट्री/i,99,99],[/drama|ڈرامہ|ड्रामा/i,18,18],[/western/i,37,37]];
+const TVR=/series|serials?|tv|shows?|سیریز|सीरीज|सीरियल/gi,MVR=/movies?|films?|فلم|فلمیں|मूवी|मूवीज़|फिल्म|फिल्में|फ़िल्म/gi,FIL=/fiction|korean|k-?drama|anime|کورین|انیمے|कोरियन|best|top|all|new|latest|of|the|on|in|and|every|platforms?|ott|\s+/gi;
+function gparse(q){
+  const g=GW.find(x=>x[0].test(q));if(!g)return null;
+  const rest=q.replace(new RegExp(g[0].source,"gi"),"").replace(TVR,"").replace(MVR,"").replace(FIL,"");
+  if(rest.length>1)return null;
+  const tv=new RegExp(TVR.source,"i").test(q),mv=new RegExp(MVR.source,"i").test(q);
+  return{mg:g[1],tg:g[2],types:tv&&!mv?["tv"]:mv&&!tv?["movie"]:["movie","tv"],lang:/korean|k-?drama|کورین|कोरियन/i.test(q)?"ko":/anime|انیمے/i.test(q)?"ja":""}}
+async function gpage(){
+  const f=fs,lm=$("#"+f.L);f.page++;lm.innerHTML='<p class="ld">🔎 لوڈ ہو رہا ہے…</p>';
+  const base={sort_by:"popularity.desc",watch_region:region(),with_watch_monetization_types:"flatrate|free|ads",page:f.page};if(f.lang)base.with_original_language=f.lang;if(f.cn)base.with_origin_country=f.cn;if(f.open)delete base.with_watch_monetization_types;
+  const rs=await Promise.all(f.types.map(t=>tm("/discover/"+t,{...base,...(f.yr?{[t==="movie"?"primary_release_year":"first_air_date_year"]:f.yr}:{}),...((t==="movie"?f.mg:f.tg)?{with_genres:t==="movie"?f.mg:f.tg}:{})}).then(d=>d.results.map(m=>card(m,t))).catch(()=>[])));
+  const mix=[];for(let i=0;i<Math.max(...rs.map(r=>r.length));i++)rs.forEach(r=>{if(r[i])mix.push(r[i])});
+  $("#"+f.G).insertAdjacentHTML("beforeend",mix.join(""));
+  lm.innerHTML=mix.length&&f.page<500?'<button class="b p" onclick="gpage()">⬇ اور دکھائیں</button>':'<p class="s">اور کچھ نہیں ملا</p>'}
+async function find(q,more){
+  if(!q.trim())return;const o=$("#fr");const sp=more?null:gparse(q);if(sp){gopen(sp,"fg","lm",o);return}if(!more){fseen=[];o.innerHTML='<div class="g" id="fg"></div><div id="lm" style="text-align:center;margin:14px"></div>'}
+  const lm=$("#lm");lm.innerHTML='<p class="ld">🔎 AI ڈھونڈ رہا ہے…</p>';
+  try{
+    if(demo){$("#fg").innerHTML=dm("/x").results.map(m=>card(m)).join("");lm.innerHTML='<p class="s">ڈیمو نتائج</p>';return}
+    const a=pj(await ai(`List 20 real movies or TV series matching: "${q}". Include every kind (recent, classic, international, OTT originals) available on streaming platforms. ${fseen.length?"Do NOT repeat any of these: "+fseen.join("; ")+". ":""}Reply ONLY with a JSON array: [{"title":"","type":"movie or tv","year":""}]`));
+    (a||[]).forEach(x=>fseen.push(x.title));
+    const l=(await Promise.all((a||[]).map(resolve))).filter(Boolean);
+    $("#fg").insertAdjacentHTML("beforeend",l.map(m=>card(m)).join(""));
+    lm.innerHTML=l.length?`<button class="b p" onclick="find(${JSON.stringify(q).replace(/"/g,"&quot;")},1)">⬇ اور دکھائیں</button>`:'<p class="s">اور کچھ نہیں ملا</p>';
+  }catch{lm.innerHTML='<p class="s">AI جواب نہیں دے سکا، دوبارہ کوشش کریں</p>'}
+}
+
+/* ---- Zee Tv: MovieBox-style browse + player ---- */
+const TABS=t=>`<div class="tabs">${[["movie","Movie"],["tv","TV/Series"],["anime","Anime"]].map(x=>`<a class="${x[0]===t?"on":""}" onclick="browse('${x[0]}')">${x[1]}</a>`).join("")}</div>`;
+const GL=[["Action",28,10759],["Adventure",12,10759],["Animation",16,16],["Comedy",35,35],["Crime",80,80],["Drama",18,18],["Family",10751,10751],["Fantasy",14,10765],["Horror",27,9648],["Mystery",9648,9648],["Romance",10749,18],["Sci-Fi",878,10765],["Thriller",53,9648],["War",10752,10768]];
+const CN=[["India","IN"],["Pakistan","PK"],["USA","US"],["UK","GB"],["Korea","KR"],["Japan","JP"],["Turkey","TR"]];
+let BT="movie";
+function browse(t){BT=t;$("#hero").innerHTML="";const y=new Date().getFullYear()+1;
+  $("#main").innerHTML=TABS(t)+`<div class="fl"><select id="fgn"><option value="">Genre</option>${GL.map(g=>`<option value="${g[1]}|${g[2]}">${g[0]}</option>`).join("")}</select><select id="fcn"><option value="">Country</option>${CN.map(c=>`<option value="${c[1]}">${c[0]}</option>`).join("")}</select><select id="fyr"><option value="">Year</option>${Array.from({length:35},(_,i)=>`<option>${y-i}</option>`).join("")}</select></div><div id="bg"></div>`;
+  ["fgn","fcn","fyr"].forEach(i=>$("#"+i).onchange=bgo);bgo();scrollTo(0,0)}
+function bgo(){const g=$("#fgn").value.split("|"),a=BT==="anime";
+  gopen({mg:a?16:(g[0]||""),tg:a?16:(g[1]||""),lang:a?"ja":"",cn:a?"":$("#fcn").value,yr:$("#fyr").value,open:1,types:a?["movie","tv"]:[BT]},"bg2","bl",$("#bg"))}
+/* اپنی قانونی ویڈیوز یہاں ڈالیں: "movie:TMDB_ID":"https://.../film.mp4" یا سیریز: "tv:ID":[{t:"Ep 1",u:"https://.../1.mp4"}] */
+const LIB={};
+function play(){
+  const s=LIB[cur.t+":"+cur.id],L=s?(Array.isArray(s)?s:[{t:cur.n,u:s}]):[];
+  const box=L.length?`<video id="pvd" controls playsinline autoplay src="${esc(L[0].u)}"></video>`:cur.vid?`<iframe allowfullscreen allow="autoplay;encrypted-media;fullscreen" src="https://www.youtube.com/embed/${cur.vid}?autoplay=1"></iframe>`:'<p class="s">اس کا ٹریلر دستیاب نہیں۔ نیچے سے اپنی ویڈیو چلائیں۔</p>';
+  show(`<h2 style="margin:0">${esc(cur.n)}</h2><div id="pl">${box}</div>${L.length>1?`<div class="chips">${L.map((x,i)=>`<button class="b" onclick="$('#pvd').src=this.dataset.u;$('#pvd').play()" data-u="${esc(x.u)}">${esc(x.t||"Ep "+(i+1))}</button>`).join("")}</div>`:""}
+  <p class="s">${L.length?"آپ کی لائبریری سے":"ابھی صرف ٹریلر چل رہا ہے"} · اپنی ویڈیو فائل یا لنک (.mp4) بھی چلا سکتے ہیں</p>
+  <div class="act"><input type="file" id="lf" accept="video/*"><input id="lu" placeholder="https://…mp4" style="flex:1;min-width:140px;background:rgba(255,255,255,.08);border:1px solid #2c3350;border-radius:12px;padding:9px;direction:ltr"><button class="b p" onclick="pl2($('#lu').value)">▶</button></div>
+  <div class="act">${cur.link?`<a class="b p" href="${cur.link}" target="_blank" rel="noopener" style="text-decoration:none">🔗 قانونی طور پر کہاں دیکھیں</a>`:""}<button class="b" onclick="det(cur.t,cur.id)">← واپس</button></div>`);
+  $("#lf").onchange=e=>{const f=e.target.files[0];if(f)pl2(URL.createObjectURL(f))}}
+function pl2(u){u=(u||"").trim();if(u)$("#pl").innerHTML=`<video id="pvd" controls playsinline autoplay src="${esc(u)}"></video>`}
+/* ---- menu / hub ---- */
+$("#sel").append($("#rg"),$("#lg"),$("#th"));
+addEventListener("scroll",()=>$("header").classList.toggle("sc",scrollY>40),{passive:true});
+const MENU=[["🏠","ہوم","home()"],["🎬","فلمیں","browse('movie')"],["📺","سیریز","browse('tv')"],["✨","AI Hub","hub()"],["🤖","AI چیٹ","chat()"],["🎲","سرپرائز","surprise()"],["❤","میری لسٹ","wlist()"]];
+$("#mi").innerHTML=MENU.map(m=>`<div class="mi" onclick="menu(0);${m[2]}"><span>${m[0]}</span>${m[1]}</div>`).join("");
+function menu(o){$("#dw").classList.toggle("o",!!o)}
+function catalog(t,h){$("#hero").innerHTML="";$("#main").innerHTML=`<h2>${h} · ${region()}</h2><div id="cat"></div>`;gopen({mg:"",tg:"",lang:"",types:t},"cg","cl",$("#cat"));scrollTo(0,0)}
+const aiPre=q=>{chat();$("#ci").value=q;csend()};
+const HUB=[["🔎","نام یاد نہیں؟","کہانی بتاؤ، نام پاؤ","recall()"],["✨","AI فائنڈر","موڈ یا قسم سے","finder()"],["🤖","AI چیٹ","کچھ بھی پوچھو","chat()"],["🍿","موویز نائٹ پلانر","آج رات کا پلان","aiPre('Plan a movie night for me. First ask 2 short questions (who is watching, and the mood), then suggest a 3-title lineup with a snack idea.')"],["⚔","مقابلہ","دو فلموں کا موازنہ","cmp()"],["🧩","کوئز","فلم ٹریویا گیم","aiPre('Start an interactive 5-question trivia quiz about a famous movie or series of my choice. Ask which one first, then one question at a time with 4 options, and keep score.')"],["📖","کہانی سمجھاؤ","پلاٹ اور اینڈنگ","aiPre('Explain the full plot and ending of a movie or series I name, with spoilers. Ask me which title first.')"],["👨‍👩‍👧","فیملی نائٹ","بچوں کے ساتھ محفوظ","aiPre('Suggest 6 movies or series that are safe and fun for a whole family including kids. Give a one-line reason each and any caution.')"],["⏱","وقت کے حساب سے","جتنا وقت اتنی فلم","aiPre('Ask me how much free time I have and what mood I am in, then recommend the best movie or episode set that fits exactly.')"],["🎬","اداکار / ڈائریکٹر","بہترین کام کی لسٹ","aiPre('Ask me for an actor or director name, then list their 8 best movies or series, with the best one to start with.')"],["🧬","میرا ذائقہ","لسٹ سے نئی تجاویز","wl.length>1?taste():aiPre('Ask me 3 movies or series I loved, then recommend 8 new ones with matching taste.')"],["🗓","ہفتے کا پلان","7 دن کی ویچ لسٹ","aiPre('Build me a 7-day watch plan (one title per day, mix of movies and series) based on my mood. Ask my mood first.')"],["📱","TikTok کیپشن","ہیش ٹیگ کے ساتھ","aiPre('Write 3 catchy TikTok captions with hashtags for a movie or series I name. Ask me the title first.')"],["🎲","سرپرائز","رینڈم پک","surprise()"]];
+function hub(){show(`<h2>✨ AI Hub</h2><p class="s">AI کے سارے ٹولز ایک جگہ</p><div class="hub">${HUB.map(x=>`<div class="hc" tabindex="0" onclick="${x[3]}"><i>${x[0]}</i>${x[1]}<small>${x[2]}</small></div>`).join("")}</div>`)}
+function cmp(){const a=prompt("پہلی فلم یا سیریز؟"),b=a&&prompt("دوسری فلم یا سیریز؟");if(a&&b)aiPre(`Compare "${a}" and "${b}": story, acting, pacing, who should watch which, and a clear final winner.`)}
+function recall(){show(`<h2>🔎 نام یاد نہیں؟</h2><p class="s">کہانی، کوئی سین، اداکار یا جو بھی یاد ہے لکھیں، AI نام ڈھونڈے گا</p><input id="rq" style="width:100%;background:rgba(255,255,255,.08);border:1px solid #2c3350;border-radius:12px;padding:11px" placeholder="مثلاً: ایک آدمی خواب کے اندر خواب میں چوری کرتا ہے" onkeydown="if(event.key==='Enter')rfind(this.value)"><div class="act"><button class="b p" onclick="rfind($('#rq').value)">🔎 ڈھونڈو</button></div><div id="fr"></div>`)}
+async function rfind(v){if(!v.trim())return;const o=$("#fr");o.innerHTML='<p class="ld">🔎 AI ڈھونڈ رہا ہے…</p>';
+  if(demo){o.innerHTML=`<div class="g">${dm("/x").results.slice(0,6).map(m=>card(m)).join("")}</div>`;return}
+  try{const a=pj(await ai(`Identify the movie or TV series from this vague description: "${v}". Give the 5 most likely matches. Reply ONLY with a JSON array: [{"title":"","type":"movie or tv","year":""}]`));const l=(await Promise.all((a||[]).map(resolve))).filter(Boolean);o.innerHTML=l.length?`<div class="g">${l.map(m=>card(m)).join("")}</div>`:'<p class="s">نہیں ملا، مزید تفصیل لکھیں</p>'}catch{o.innerHTML='<p class="s">AI جواب نہیں دے سکا</p>'}}
+/* ---- extra AI ---- */
+const MOODS=[["😂","something light and funny","ہنسی"],["😢","emotional tearjerker","جذباتی"],["😱","edge-of-seat suspense thriller","سسپنس"],["🤩","mind-blowing epic adventure","ایپک"],["🧠","clever mind-bending story","دماغی"],["💞","feel-good romance","رومانس"]];
+const QQ=[["👨‍👩‍👧 فیملی کے ساتھ؟","Is this suitable to watch with family and kids? Mention content warnings briefly."],["🎭 ٹوئسٹ اور اینڈنگ؟","Without spoilers, how are the pacing, twists and ending?"],["🔁 ملتی جلتی تجویز","Suggest 5 similar titles and say why each fits."]];
+function mmenu(){show(`<h2>🎭 آج کا موڈ؟</h2><div class="chips">${MOODS.map(m=>`<button class="b mood" onclick="mood('${m[1]}')">${m[0]} ${m[2]}</button>`).join("")}</div>`)}
+function mood(q){finder();$("#fq").value=q;find(q)}
+function chatAsk(q){chat(ctx());$("#ci").value=q;csend()}
+function taste(){find("movies and TV series matching the taste of someone who loves: "+wl.map(x=>x.title).join(", ")+". Do not include those titles.")}
+/* ---- voice ---- */
+const VL={"Urdu (Urdu script)":"ur-PK","Hindi (Devanagari script)":"hi-IN","Roman Urdu":"ur-PK","English":"en-US"};
+let rec=null;
+function mic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition,b=$("#mic");
+  if(!SR){$("#cl").insertAdjacentHTML("beforeend",'<div class="s">اس براؤزر میں وائس سپورٹ نہیں۔ Chrome استعمال کریں۔</div>');return}
+  if(rec){rec.stop();return}
+  rec=new SR();rec.lang=VL[$("#lg").value]||"ur-PK";rec.interimResults=true;rec.continuous=false;
+  let fin="";b.textContent="⏹";b.style.background="#e50914";
+  rec.onresult=e=>{fin=[...e.results].map(r=>r[0].transcript).join(" ");$("#ci").value=fin};
+  rec.onerror=e=>{if(e.error==="not-allowed")$("#cl").insertAdjacentHTML("beforeend",'<div class="s">مائیک کی اجازت دیں (براؤزر سیٹنگ میں)۔</div>')};
+  rec.onend=()=>{rec=null;b.textContent="🎤";b.style.background="";if($("#ci").value.trim())csend()};
+  rec.start()}
+function speak(t){
+  if(!window.speechSynthesis||!$("#spk")||!$("#spk").checked)return;
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.replace(/[*#_`]/g,""));u.lang=VL[$("#lg").value]||"ur-PK";speechSynthesis.speak(u)}
+/* ---- AI chat ---- */
+let chatH=[];
+const ctx=()=>`${cur.n} (${cur.yr}), ${cur.t==="tv"?"TV series":"movie"}. Genres: ${cur.g}. Rating: ${cur.r}. Plot: ${cur.o}. Available on (${region()}): ${cur.pl.join(", ")||"unknown"}.`;
+function chat(c){
+  chatH=[{role:"system",content:`You are a friendly movie and TV series expert. Reply in ${$("#lg").value}. Keep answers short and clear. User region: ${region()}.`+(c?` The user is currently looking at: ${c}`:"")}];
+  show(`<h2>💬 AI چیٹ</h2><div id="cl" style="display:flex;flex-direction:column;gap:8px;max-height:50vh;overflow-y:auto;margin:10px 0"><div class="s">فلم، سیریز یا سفارش کے بارے میں کچھ بھی پوچھیں…</div></div>
+<div style="display:flex;gap:8px"><input id="ci" style="flex:1;background:rgba(255,255,255,.08);border:1px solid #2c3350;border-radius:12px;padding:11px" placeholder="یہاں لکھیں…" onkeydown="if(event.key==='Enter')csend()"><button class="b" id="mic" onclick="mic()" aria-label="وائس">🎤</button><button class="b p" onclick="csend()">➤</button></div>
+<label class="s" style="display:block;cursor:pointer"><input type="checkbox" id="spk" checked style="margin-inline-end:6px">🔊 جواب آواز میں بھی سنائیں</label>`)}
+function cadd(r,t){const d=document.createElement("div");d.style.cssText="white-space:pre-wrap;line-height:1.8;padding:9px 12px;border-radius:12px;max-width:90%;background:"+(r==="u"?"var(--blue)":"var(--pn2,#141a34)")+";align-self:"+(r==="u"?"flex-end":"flex-start");d.textContent=t;$("#cl").appendChild(d);d.scrollIntoView({block:"end"});return d}
+async function csend(){
+  const i=$("#ci"),v=i.value.trim();if(!v)return;i.value="";cadd("u",v);chatH.push({role:"user",content:v});const el=cadd("a","…");
+  try{const r=demo?"(ڈیمو چیٹ — اصل سائٹ پر AI جواب دے گا)":(await api("ai",{messages:chatH})).choices[0].message.content;el.textContent=r;chatH.push({role:"assistant",content:r});speak(r)}
+  catch{el.textContent="AI جواب نہیں دے سکا، دوبارہ کوشش کریں";chatH.pop()}}
+if(code)enter(code);
+</script>
+</body>
+</html>
